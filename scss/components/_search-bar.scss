@@ -1,0 +1,22 @@
+.main-search {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    height: $input-height;
+    background-color: $background-primary;
+    border-radius: 5px;
+    margin: 17px 0;
+    &__input {
+        width: 100%;
+        padding: 0 $input-height 0 24px;
+        &::placeholder{
+            opacity: 0.25;
+        }
+    }
+    &__label{
+        position: absolute;
+        right: 0;
+        height: 100%;
+        padding: $input-height / 3.8;
+    }
+}

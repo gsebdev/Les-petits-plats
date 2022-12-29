@@ -1,0 +1,35 @@
+.filter{
+    border-radius: 5px;
+    width:fit-content;
+    color: white;
+    &__input{
+        height:$input-height;
+        position: relative;
+        i {
+            display: block;
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            align-items: center;
+            display: flex;
+            background: url('../images/arrow.svg') center no-repeat;
+            width: 60px;
+            transform: rotate(180deg);
+
+        }
+        input {
+            height:100%;
+            padding-left: 15px;
+            &::placeholder{
+                font-weight: 700;
+            }
+        }
+    }
+    &__list{
+        display: none;
+    }
+    &--blue{
+        background-color: $blue;
+    }
+}

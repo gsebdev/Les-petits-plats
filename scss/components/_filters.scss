@@ -1,11 +1,21 @@
+.filters {
+    &__container {
+        display: flex;
+        margin: -20px 0 0 -20px;
+        width: calc(100% + 20px);
+    }
+}
+
 .filter{
     border-radius: 5px;
     width:fit-content;
     color: white;
+    margin: 20px 0 0 20px;
     &__input{
         height:$input-height;
         position: relative;
         i {
+            cursor: pointer;
             display: block;
             position: absolute;
             right: 0;
@@ -31,5 +41,11 @@
     }
     &--blue{
         background-color: $blue;
+    }
+    &--green{
+        background-color: $green;
+    }
+    &--red{
+        background-color: $red;
     }
 }

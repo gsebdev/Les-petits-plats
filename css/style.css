@@ -1,5 +1,6 @@
 @charset "UTF-8";
 /* search */
+/* recipe */
 /***
     The new CSS reset - version 1.8.2 (last updated 23.12.2022)
     GitHub page: https://github.com/elad2412/the-new-css-reset
@@ -106,6 +107,10 @@ body {
   font-weight: 400;
 }
 
+strong {
+  font-weight: 700;
+}
+
 h1 {
   font-family: "DM Sans", sans-serif;
   font-weight: 700;
@@ -115,11 +120,22 @@ h1 {
 
 p {
   font-family: "Roboto", sans-serif;
-  font-size: 0.67em;
+  font-size: 0.666666667em;
 }
 
 body {
   padding: 42px 100px;
+}
+
+.recipe-wrapper {
+  display: flex;
+  width: calc(100% + 50px);
+  margin: -50px 0 0 -50px;
+  flex-wrap: wrap;
+}
+
+.search-section {
+  padding-bottom: 25px;
 }
 
 header {
@@ -153,16 +169,24 @@ header {
   padding: 18.1578947368px;
 }
 
+.filters__container {
+  display: flex;
+  margin: -20px 0 0 -20px;
+  width: calc(100% + 20px);
+}
+
 .filter {
   border-radius: 5px;
   width: fit-content;
   color: white;
+  margin: 20px 0 0 20px;
 }
 .filter__input {
   height: 69px;
   position: relative;
 }
 .filter__input i {
+  cursor: pointer;
   display: block;
   position: absolute;
   right: 0;
@@ -186,6 +210,59 @@ header {
 }
 .filter--blue {
   background-color: #3282F7;
+}
+.filter--green {
+  background-color: #68D9A4;
+}
+.filter--red {
+  background-color: #ED6454;
+}
+
+.recipe-card {
+  width: calc(33.33% - 50px);
+  margin: 50px 0 0 50px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.recipe-card__img-container {
+  height: 178px;
+  background-color: #C7BEBE;
+}
+.recipe-card__bottom-container {
+  background-color: #E7E7E7;
+  padding: 20px;
+  min-height: 186px;
+  height: 100%;
+}
+.recipe-card__title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.recipe-card__recipe-body {
+  display: flex;
+}
+.recipe-card__ingredients {
+  width: 50%;
+  margin-top: 20px;
+  font-size: 0.666666667em;
+  padding-right: 7px;
+}
+.recipe-card__duration {
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+}
+.recipe-card__duration i {
+  background: url("../images/watch.svg") center no-repeat;
+  height: 20px;
+  width: 20px;
+  margin-right: 7px;
+  flex-shrink: 0;
+}
+.recipe-card__preparation {
+  width: 50%;
+  margin-top: 20px;
 }
 
 /*# sourceMappingURL=style.css.map */

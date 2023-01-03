@@ -1,7 +1,12 @@
 @import './abstract/variables';
+
 @import './base/reset';
 @import './base/typography';
+
 @import './pages/home';
+
 @import './layout/header';
+
 @import './components/search-bar';
 @import './components/filters';
+@import './components/recipe-card';

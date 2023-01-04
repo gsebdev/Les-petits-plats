@@ -242,7 +242,7 @@ header {
 }
 .filter__list {
   display: none;
-  padding: 0 20px 16px;
+  padding: 0 20px;
   columns: 3;
 }
 .filter__list.col-1 {
@@ -257,6 +257,9 @@ header {
 }
 .filter__list li.focus {
   background-color: rgba(0, 0, 0, 0.3);
+}
+.filter__list li:last-child {
+  padding-bottom: 16px;
 }
 .filter--blue {
   background-color: #3282F7;

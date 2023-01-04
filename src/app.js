@@ -22,6 +22,13 @@ class App {
         this._recipeDisplay = new RecipeDisplay(document.querySelector('.recipe-wrapper'))
         this._filter.feedSuggestions(this._recipes)
         this._recipeDisplay.render(this._recipes)
+        this.getFilterChange()
+
+    }
+    async getFilterChange() {
+        await this._filter.onchange
+        console.log('aaa')
+        this.getFilterChange()
     }
 }
 

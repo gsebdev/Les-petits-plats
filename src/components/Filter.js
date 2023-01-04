@@ -25,18 +25,22 @@ export default class Filter {
         })
         this._componentContainer.append(this._tagsEl, this._filtersContainer)
 
+        this._activeFilter = null
+        this._triggerTagChange = null
 
     }
 
-    getFilterDOM(filter, index) {
+    get onchange() {
+        return new Promise(resolve => this._triggerTagChange = resolve)
+    }
+
+    getFilterDOM(filter) {
         const filterEl = document.createElement('div')
         filterEl.className = 'filter filter--' + filter.color
-        filterEl.setAttribute('data-filter', filter.filterKey)
-        filterEl.setAttribute('data-name', filter.name)
-        filterEl.setAttribute('data-index', index)
 
         const inputContainer = document.createElement('div')
         inputContainer.className = 'filter__input'
+
         const input = document.createElement('input')
         input.placeholder = filter.name
         input.type = 'text'
@@ -44,7 +48,7 @@ export default class Filter {
         input.addEventListener('click', (e) => this.handleKeyDown(e, filter))
         input.addEventListener('keydown', (e) => this.handleKeyDown(e, filter))
         const arrowIcon = document.createElement('i')
-        arrowIcon.addEventListener('click', () => this.toggleSuggestionList(filter))
+        arrowIcon.addEventListener('click', () => this.toggleFilterActivation(filter))
 
         inputContainer.append(input, arrowIcon)
 
@@ -98,13 +102,13 @@ export default class Filter {
                 filterListEl.append(suggestEl)
             })
     }
-
+    // Event handlers
     handleInput(e, filter) {
         filter.input = e.target.value
         this.updateSuggestions(filter)
         
         if(!filter.element.classList.contains('expanded')){
-            this.expandSuggestionList(filter)
+            this.activateFilter(filter)
         }
         
     }
@@ -140,7 +144,7 @@ export default class Filter {
                 e.preventDefault()
                 const value = e.target.value
                 if(value.length < 3){
-                    this.expandSuggestionList(filter)
+                    this.activateFilter(filter)
                 }else {
                     this.addTag(filter, value)
                     e.target.value = ''
@@ -152,7 +156,7 @@ export default class Filter {
             }
             case 27 : {
                 e.preventDefault()
-                this.contractSuggestionList(filter)
+                this.desactivateFilter(filter)
 
             }
 
@@ -168,34 +172,39 @@ export default class Filter {
     }
     handleDocumentClick(e, filter){
         if(e.target.closest('.filter') !== filter.element){
-            this.contractSuggestionList(filter)
+            this.desactivateFilter(filter)
         }
     }
-    expandSuggestionList(filter) {
+
+    //Methodes des gestion des filtres
+    activateFilter(filter) {
+        this._activeFilter = filter.element
+        this._filters.forEach(f => {
+            if(f.element !== this._activeFilter){
+                this.desactivateFilter(f)
+            }
+        })
         document.onclick = (e) => this.handleDocumentClick(e, filter)
         filter.element.classList.add('expanded')
         const input = filter.element.querySelector('input')
-       // input.onkeydown = (e) => this.handleKeyDown(e, filter)
         input.setAttribute('placeholder', 'Rechercher un ' + filter.name.slice(0, -1).toLowerCase())
-            
-
     }
-    contractSuggestionList(filter) {
+    desactivateFilter(filter) {
+        this._activeFilter = null
         document.onclick = ''
         filter.element.classList.remove('expanded')
         filter.input = ''
         const input = filter.element.querySelector('input')
-       // input.onkeydown = ''
         input.placeholder = filter.name
         input.value = ''
         this.updateSuggestions(filter)
     }
 
-    toggleSuggestionList(filter) {
-        if(filter.element.classList.contains('expanded')){
-            this.contractSuggestionList(filter)
+    toggleFilterActivation(filter) {
+        if(this._activeFilter === filter.element){
+            this.desactivateFilter(filter)
         } else {
-            this.expandSuggestionList(filter)
+            this.activateFilter(filter)
         }
     }
 
@@ -215,13 +224,15 @@ export default class Filter {
 
             this._tagsEl.appendChild(tagEl)
             this.updateSuggestions(filter)
-            this.contractSuggestionList(filter)
+            this.desactivateFilter(filter)
+            this._triggerTagChange()
         }
     }
     removeTag(e, filter, value) {
         filter.tags.delete(value)
         e.target.closest('.tag').remove()
         this.updateSuggestions(filter)
+        this._triggerTagChange()
     }
         
 }

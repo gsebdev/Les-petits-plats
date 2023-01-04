@@ -13,6 +13,11 @@ export default class Recipe {
         this._appliance = recipe.appliance
         this._ustensils = recipe.ustensils
         this._cardDOM = null
+        this._filters = {
+            ingredients : this._ingredients.map(i => i.ingredient),
+            appliance : [this._appliance],
+            ustensils : this._ustensils
+        }
     }
 
     get id() {
@@ -44,5 +49,8 @@ export default class Recipe {
     }
     get cardDOM() {
         return this._cardDOM
+    }
+    get filters() {
+        return this._filters
     }
 }

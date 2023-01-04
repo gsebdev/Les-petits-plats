@@ -169,15 +169,49 @@ header {
   padding: 18.1578947368px;
 }
 
+.filter-section {
+  margin-bottom: 89px;
+  position: relative;
+}
+
 .filters__container {
+  position: absolute;
   display: flex;
   margin: -20px 0 0 -20px;
   width: calc(100% + 20px);
+}
+.filters__tags .tag {
+  color: white;
+  font-weight: 700;
+  font-size: 0.7778em;
+  padding: 8px 20px;
+  border-radius: 5px;
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 15px 15px 0;
+}
+.filters__tags .tag i {
+  height: 20px;
+  width: 20px;
+  background: url("../images/close.svg") center no-repeat;
+  margin-left: 13px;
+  cursor: pointer;
+}
+.filters__tags .tag--blue {
+  background-color: #3282F7;
+}
+.filters__tags .tag--green {
+  background-color: #68D9A4;
+}
+.filters__tags .tag--red {
+  background-color: #ED6454;
 }
 
 .filter {
   border-radius: 5px;
   width: fit-content;
+  height: fit-content;
   color: white;
   margin: 20px 0 0 20px;
 }
@@ -200,6 +234,7 @@ header {
 }
 .filter__input input {
   height: 100%;
+  width: 100%;
   padding-left: 15px;
 }
 .filter__input input::placeholder {
@@ -207,6 +242,21 @@ header {
 }
 .filter__list {
   display: none;
+  padding: 0 20px 16px;
+  columns: 3;
+}
+.filter__list.col-1 {
+  columns: 1;
+}
+.filter__list.col-2 {
+  columns: 2;
+}
+.filter__list li {
+  cursor: pointer;
+  padding: 5px 0 5px 0;
+}
+.filter__list li.focus {
+  background-color: rgba(0, 0, 0, 0.3);
 }
 .filter--blue {
   background-color: #3282F7;
@@ -216,6 +266,18 @@ header {
 }
 .filter--red {
   background-color: #ED6454;
+}
+.filter.expanded {
+  min-width: 300px;
+}
+.filter.expanded .filter__input input::placeholder {
+  opacity: 0.5;
+}
+.filter.expanded .filter__input i {
+  transform: rotate(0deg);
+}
+.filter.expanded .filter__list {
+  display: block;
 }
 
 .recipe-card {

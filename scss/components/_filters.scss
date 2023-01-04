@@ -1,14 +1,50 @@
+.filter-section {
+    margin-bottom: 89px;
+    position: relative;
+}
 .filters {
+    
     &__container {
+        position: absolute;
         display: flex;
         margin: -20px 0 0 -20px;
         width: calc(100% + 20px);
+    }
+    &__tags {
+        .tag {
+            color: white;
+            font-weight: 700;
+            font-size: 0.7778em;
+            padding: 8px 20px;
+            border-radius: 5px;
+            display: inline-flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0 15px 15px 0;
+            i {
+                height: 20px;
+                width: 20px;
+                background: url('../images/close.svg') center no-repeat;
+                margin-left: 13px;
+                cursor: pointer;
+            }
+            &--blue{
+                background-color: $blue;
+            }
+            &--green{
+                background-color: $green;
+            }
+            &--red{
+                background-color: $red;
+            }
+        }
     }
 }
 
 .filter{
     border-radius: 5px;
     width:fit-content;
+    height: fit-content;
     color: white;
     margin: 20px 0 0 20px;
     &__input{
@@ -30,6 +66,7 @@
         }
         input {
             height:100%;
+            width: 100%;
             padding-left: 15px;
             &::placeholder{
                 font-weight: 700;
@@ -38,6 +75,21 @@
     }
     &__list{
         display: none;
+        padding: 0 20px 16px;
+        columns: 3;
+        &.col-1 {
+            columns: 1;
+        }
+        &.col-2 {
+            columns: 2;
+        }
+        li {
+            cursor: pointer;
+            padding: 5px 0 5px 0;
+            &.focus {
+                background-color: rgba(0, 0, 0, 0.3);
+            }
+        }
     }
     &--blue{
         background-color: $blue;
@@ -47,5 +99,23 @@
     }
     &--red{
         background-color: $red;
+    }
+    &.expanded{
+        min-width: 300px;
+        .filter {
+            &__input {
+                input {
+                    &::placeholder{
+                        opacity: 0.5;
+                    }
+                }
+                i {
+                    transform: rotate(0deg);
+                }
+            }
+            &__list {
+                display: block;
+            }
+        }
     }
 }

@@ -42,7 +42,7 @@ export default class RecipeCard {
             const li = document.createElement('li')
             const strong = document.createElement('strong')
             strong.textContent = ingredient.ingredient + ': '
-            const liText = ingredient.unit ? ingredient.quantity + ' ' + ingredient.quantity : ingredient.quantity
+            const liText = ingredient.unit ? ingredient.quantity + ' ' + ingredient.unit : ingredient.quantity
             li.textContent = liText
             li.prepend(strong)
             ingredients.append(li)            

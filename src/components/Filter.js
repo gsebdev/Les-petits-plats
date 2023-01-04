@@ -33,6 +33,13 @@ export default class Filter {
     get onchange() {
         return new Promise(resolve => this._triggerTagChange = resolve)
     }
+    get tags() {
+        let tags = {}
+        this._filters.forEach(filter => {
+            tags[filter.filterKey] = [...filter.tags]
+        })
+        return tags
+    }
 
     getFilterDOM(filter) {
         const filterEl = document.createElement('div')

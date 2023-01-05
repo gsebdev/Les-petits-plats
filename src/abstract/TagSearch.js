@@ -1,5 +1,4 @@
 const filterByTags = (list, tagsObject) => {
-
         return list.filter(element =>
             Object.keys(tagsObject).every((key) => 
                 tagsObject[key].every(tag => 

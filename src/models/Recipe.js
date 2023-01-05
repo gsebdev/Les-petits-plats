@@ -4,11 +4,11 @@ export default class Recipe {
      * @param {Object} recipe 
      */
     constructor(recipe) {
-        this._id = recipe._id
+        this._id = recipe.id
         this._name = recipe.name
         this._servings = recipe.servings
         this._ingredients = recipe.ingredients
-        this._ingredientsNames = this._ingredients.map(i => i.ingredient)
+        this._ingredientsNames = this._ingredients.map(i => i.ingredient.charAt(0).toUpperCase() + i.ingredient.slice(1).toLowerCase())
         this._time = recipe.time
         this._description = recipe.description
         this._appliance = recipe.appliance

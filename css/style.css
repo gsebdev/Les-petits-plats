@@ -167,6 +167,7 @@ header {
   right: 0;
   height: 100%;
   padding: 18.1578947368px;
+  cursor: pointer;
 }
 
 .filter-section {

@@ -11,6 +11,10 @@ export default class RecipeCard {
     createCardDOM(){
         const card = document.createElement('article')
         card.className = 'recipe-card'
+        card.id = this._Recipe.id
+
+        const link = document.createElement('a')
+        link.href = '?recipe_id=' + this._Recipe.id
 
         const imgContainer = document.createElement('div')
         imgContainer.className = 'recipe-card__img-container'
@@ -58,7 +62,8 @@ export default class RecipeCard {
         recipeBody.append(ingredients, preparation)
         bottomContainer.append(title, recipeBody)
 
-        card.append(imgContainer, bottomContainer)
+        link.append(imgContainer, bottomContainer)
+        card.append(link)
 
         return card
 

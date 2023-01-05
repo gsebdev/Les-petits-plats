@@ -1,5 +1,4 @@
 import keywordSearch from './abstract/MainSearch'
-import MainSearch from './abstract/MainSearch'
 import filterByTags from './abstract/TagSearch'
 import { recipes } from './api/recipe'
 import Filter from './components/Filter'

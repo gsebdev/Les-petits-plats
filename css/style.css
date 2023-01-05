@@ -133,6 +133,10 @@ body {
   margin: -50px 0 0 -50px;
   flex-wrap: wrap;
 }
+.recipe-wrapper .no-results-message {
+  margin: 100px 0 0 50px;
+  font-size: 1em;
+}
 
 .search-section {
   padding-bottom: 25px;

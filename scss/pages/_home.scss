@@ -6,6 +6,10 @@ body {
     width: calc(100% + $recipe-card-gap);
     margin: (-$recipe-card-gap) 0 0 (-$recipe-card-gap);
     flex-wrap: wrap;
+    .no-results-message {
+        margin: 100px 0 0 50px;
+        font-size: 1em;
+    }
 }
 .search-section {
     padding-bottom: 25px;

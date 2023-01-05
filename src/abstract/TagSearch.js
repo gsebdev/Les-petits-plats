@@ -1,31 +1,18 @@
-import Search from "./Search";
+const filterByTags = (list, tagsObject) => {
+    let filteredList = list
 
-export default class TagSearch extends Search {
-    constructor(list, tagsObject){
-        super(list)
-        this._tagsObject = tagsObject
-        this._filteredList = this._list
-
-        Object.keys(this._tagsObject).forEach((key) => {
-            this.filterByOneKey(this._tagsObject[key], key)
-        })
-        return this._filteredList
-    }
-
-    filterByOneKey(tags, key) {
-        this._filteredList = this._filteredList.filter(element => {
-            
+    Object.keys(tagsObject).forEach((key) => {
+        const tags = tagsObject[key]
+        filteredList = filteredList.filter(element => {
             return tags.every(tag => {
-
                 return element.filters[key].some(string => 
                     string.toLowerCase().indexOf(tag) !== -1
                 )
-
             })
             
         })
-    }
-
-    
-    
+    })
+    return filteredList
 }
+
+export default filterByTags

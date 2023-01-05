@@ -1,5 +1,6 @@
+import keywordSearch from './abstract/MainSearch'
 import MainSearch from './abstract/MainSearch'
-import TagSearch from './abstract/TagSearch'
+import filterByTags from './abstract/TagSearch'
 import { recipes } from './api/recipe'
 import Filter from './components/Filter'
 import RecipeDisplay from './components/RecipeDisplay'
@@ -23,9 +24,7 @@ class App {
                 {color: 'red', name: 'Ustensiles', filterKey: 'ustensils'}
             ])
         this._searchBar = new SearchBar('.main-search', this.handleSearchRequest.bind(this))
-        this._keywordSearch = new MainSearch(this._recipes, [
-            'ingredientsNames', 'name', 'description'
-        ])
+        this._propertiesToSearch = ['ingredientsNames', 'name', 'description']
         this._recipeDisplay = new RecipeDisplay(document.querySelector('.recipe-wrapper'))
         this._recipeDisplay.render(this._recipes)
         
@@ -37,14 +36,14 @@ class App {
     }
     async getFilterChange() {
         await this._filter.onchange
-        const filteredRecipes = new TagSearch(this._currentRecipes,this._filter.tags)
+        const filteredRecipes = filterByTags(this._currentRecipes,this._filter.tags)
         this._filter.feedSuggestions(filteredRecipes)
         this._recipeDisplay.render(filteredRecipes)
         this.getFilterChange()
     }
 
     handleSearchRequest(){
-       this._currentRecipes = this._keywordSearch.searchByString(this._searchBar.searchValue)
+       this._currentRecipes = keywordSearch(this._recipes, this._searchBar.searchValue, this._propertiesToSearch)
        this._recipeDisplay.render(this._currentRecipes)
        this._filter.resetAllTags()
        this._filter.feedSuggestions(this._currentRecipes)

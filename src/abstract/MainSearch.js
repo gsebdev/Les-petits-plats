@@ -1,20 +1,13 @@
-import Search from "./Search";
-
-export default class MainSearch extends Search {
-    constructor(list, keysToSearch){
-        super(list)
-        this._keysToSearch = keysToSearch
-    }
-
-    searchByString(searchString) {
+const keywordSearch = (list, searchString, propertiesToSearch) => {
         if(searchString === ''){
-            return this._list
+            return list
         }
-        const search = this._list.filter(element => {
-            return this._keysToSearch.some(key => {
+        const search = list.filter(element => {
+            return propertiesToSearch.some(key => {
                 return element[key].toLowerCase().indexOf(searchString.toLowerCase()) !== -1
             })
         })
         return search
     }
-}
+
+    export default keywordSearch

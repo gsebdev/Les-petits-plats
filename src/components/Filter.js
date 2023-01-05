@@ -36,11 +36,13 @@ export default class Filter {
     get tags() {
         let tags = {}
         this._filters.forEach(filter => {
-            tags[filter.filterKey] = [...filter.tags]
+            if(filter.tags.size !== 0){
+                tags[filter.filterKey] = [...filter.tags]
+            }
         })
         return tags
     }
-
+    
     getFilterDOM(filter) {
         const filterEl = document.createElement('div')
         filterEl.className = 'filter filter--' + filter.color
@@ -54,6 +56,7 @@ export default class Filter {
         input.addEventListener('input', (e) => this.handleInput(e, filter))
         input.addEventListener('click', (e) => this.handleKeyDown(e, filter))
         input.addEventListener('keydown', (e) => this.handleKeyDown(e, filter))
+        
         const arrowIcon = document.createElement('i')
         arrowIcon.addEventListener('click', () => this.toggleFilterActivation(filter))
 
@@ -68,23 +71,21 @@ export default class Filter {
     }
 
     feedSuggestions(listOfObjects) {
-
+        const suggestions = {}
+        this._filters.forEach(filter => {
+            suggestions[filter.filterKey] = []
+        })
+        // Pour chaque et chaque filtre les mots clé sont récupérés puis stocké dans un Set dans this._filters[filter.suggestions]
         listOfObjects.forEach(object => {
-            this._filters = this._filters.map(filter => {
-                filter.suggestions = [...filter.suggestions, ...object.filters[filter.filterKey]]
-                return filter
+            this._filters.forEach(filter => {
+                suggestions[filter.filterKey] = [...suggestions[filter.filterKey], ...object.filters[filter.filterKey]]
+                filter.suggestions = [...new Set(suggestions[filter.filterKey])]
+                this.updateSuggestions(filter)
             })
-        })
-
-        this._filters = this._filters.map(filter => {
-            filter.suggestions = [...new Set(filter.suggestions)]
-            this.updateSuggestions(filter)
-            return filter
-        })
+        })        
 
     }
     updateSuggestions(filter) {
-
             //filtre les suggestions en fonction de la valeur du input
             let suggestions = filter.suggestions.filter(suggestion => suggestion.toLowerCase().indexOf(filter.input.toLowerCase()) !== -1)
             //filtre les suggestions en fonction des tags dejà présents
@@ -197,7 +198,9 @@ export default class Filter {
         input.setAttribute('placeholder', 'Rechercher un ' + filter.name.slice(0, -1).toLowerCase())
     }
     desactivateFilter(filter) {
-        this._activeFilter = null
+        if(this._activeFilter === filter.element){
+            this._activeFilter = null
+        }
         document.onclick = ''
         filter.element.classList.remove('expanded')
         filter.input = ''
@@ -208,13 +211,14 @@ export default class Filter {
     }
 
     toggleFilterActivation(filter) {
-        if(this._activeFilter === filter.element){
+        console.log(this._activeFilter, filter.element)
+        if(this._activeFilter == filter.element){
             this.desactivateFilter(filter)
         } else {
             this.activateFilter(filter)
         }
     }
-
+    // Méthodes gestion des Tags
     addTag(filter, value) {
         if(value.length < 3){
             return false
@@ -240,6 +244,12 @@ export default class Filter {
         e.target.closest('.tag').remove()
         this.updateSuggestions(filter)
         this._triggerTagChange()
+    }
+    resetAllTags() {
+        this._filters.forEach(filter => {
+            filter.tags.clear()
+            this._tagsEl.querySelectorAll('.tag').forEach(tag => tag.remove())
+        })
     }
         
 }

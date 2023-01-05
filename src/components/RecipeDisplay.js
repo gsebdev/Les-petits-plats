@@ -9,6 +9,7 @@ export default class RecipeDisplay {
     }
 
     render(recipes) {
+        this._wrapper.innerHTML = ''
         recipes.forEach(recipe => {
         this._wrapper.appendChild(recipe.cardDOM)
         })

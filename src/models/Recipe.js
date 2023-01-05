@@ -8,13 +8,14 @@ export default class Recipe {
         this._name = recipe.name
         this._servings = recipe.servings
         this._ingredients = recipe.ingredients
+        this._ingredientsNames = this._ingredients.map(i => i.ingredient)
         this._time = recipe.time
         this._description = recipe.description
         this._appliance = recipe.appliance
         this._ustensils = recipe.ustensils
         this._cardDOM = null
         this._filters = {
-            ingredients : this._ingredients.map(i => i.ingredient),
+            ingredients : this._ingredientsNames,
             appliance : [this._appliance],
             ustensils : this._ustensils
         }
@@ -31,6 +32,9 @@ export default class Recipe {
     }
     get ingredients() {
         return this._ingredients
+    }
+    get ingredientsNames() {
+        return this._ingredientsNames.toString()
     }
     get time() {
         return this._time

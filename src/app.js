@@ -49,4 +49,5 @@ class App {
     }
 }
 
-new App()
+const init = () => new App()
+init()

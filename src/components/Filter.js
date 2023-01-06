@@ -76,13 +76,20 @@ export default class Filter {
             suggestions[filter.filterKey] = []
         })
         // Pour chaque et chaque filtre les mots clé sont récupérés puis stocké dans un Set dans this._filters[filter.suggestions]
-        listOfObjects.forEach(object => {
-            this._filters.forEach(filter => {
-                suggestions[filter.filterKey] = [...suggestions[filter.filterKey], ...object.filters[filter.filterKey]]
-                filter.suggestions = [...new Set(suggestions[filter.filterKey])]
-                this.updateSuggestions(filter)
-            })
-        })        
+        if(listOfObjects.length !== 0) {
+            listOfObjects.forEach(object => {
+                 this._filters.forEach(filter => {
+                     suggestions[filter.filterKey] = [...suggestions[filter.filterKey], ...object.filters[filter.filterKey]]
+                     filter.suggestions = [...new Set(suggestions[filter.filterKey])]
+                     this.updateSuggestions(filter)
+                 })
+             })   
+         } else {
+             this._filters.forEach(filter => {
+                 filter.suggestions = []
+                 this.updateSuggestions(filter)
+             })
+         }     
 
     }
     updateSuggestions(filter) {

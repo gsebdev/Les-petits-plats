@@ -6,6 +6,7 @@ import RecipeDisplay from './components/RecipeDisplay'
 import SearchBar from './components/SearchBar'
 import Recipe from './models/Recipe'
 import RecipeCard from './templates/RecipeCard'
+import test from './tests/jsBench'
 
 
 class App {
@@ -49,4 +50,5 @@ class App {
     }
 }
 
-new App()
+const init = () => new App()
+init()

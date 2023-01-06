@@ -211,7 +211,6 @@ export default class Filter {
     }
 
     toggleFilterActivation(filter) {
-        console.log(this._activeFilter, filter.element)
         if(this._activeFilter == filter.element){
             this.desactivateFilter(filter)
         } else {

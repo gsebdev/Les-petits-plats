@@ -19,6 +19,8 @@ export default class Recipe {
             appliance : [this._appliance],
             ustensils : this._ustensils
         }
+        this._tagsList = this._ingredientsNames.toString().toLowerCase() + ', ' + this._appliance.toLowerCase() + ', ' + this._ustensils.toString().toLowerCase()
+        this._textToSearchIn = (this._ingredientsNames.toString() + ' ' + this._description + ' ' + this._name).toLowerCase()
     }
 
     get id() {
@@ -56,5 +58,11 @@ export default class Recipe {
     }
     get filters() {
         return this._filters
+    }
+    get textToSearchIn() {
+        return this._textToSearchIn
+    }
+    get tagsList() {
+        return this._tagsList
     }
 }

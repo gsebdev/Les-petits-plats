@@ -1,27 +1,20 @@
-const filterByTags = (list, tagsObject) => {
+const filterByTags = (list, tags) => {
     let filteredList = []
-    const propertiesList = Object.keys(tagsObject)
-    const tagsLists = Object.values(tagsObject)
-
+    // for each element of the recipe list
     for(let el = 0; el < list.length; el++){
         let element = list[el]
         let matchTags = true
-        for(let listOfTags = 0; listOfTags < propertiesList.length; listOfTags++){
-            if(!matchTags){
+        //for each tag -> check if doesn't match in the tag list of the recipe
+        for(let tag = 0; tag < tags.length; tag++){
+            if(element.tagsList.indexOf(tags[tag]) === -1){
+                matchTags = false
                 break
-            }
-            for(let tag = 0; tag < tagsLists[listOfTags].length; tag++){
-                if(element.filters[propertiesList[listOfTags]].toString().toLowerCase().indexOf(tagsLists[listOfTags][tag]) === -1){
-                    matchTags = false
-                    break
-                }
             }
         }
         if(matchTags){
             filteredList.push(element)
         }
     }
-
     return filteredList
 }
 

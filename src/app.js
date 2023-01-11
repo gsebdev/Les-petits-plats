@@ -23,7 +23,7 @@ class App {
                 {color: 'red', name: 'Ustensiles', filterKey: 'ustensils'}
             ])
         this._searchBar = new SearchBar('.main-search', this.handleSearchRequest.bind(this))
-        this._propertiesToSearch = ['ingredientsNames', 'name', 'description']
+        //this._propertiesToSearch = ['ingredientsNames', 'name', 'description']
         this._recipeDisplay = new RecipeDisplay(document.querySelector('.recipe-wrapper'))
         this._recipeDisplay.render(this._recipes)
         

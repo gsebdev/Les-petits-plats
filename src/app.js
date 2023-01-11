@@ -23,7 +23,6 @@ class App {
                 {color: 'red', name: 'Ustensiles', filterKey: 'ustensils'}
             ])
         this._searchBar = new SearchBar('.main-search', this.handleSearchRequest.bind(this))
-        this._propertiesToSearch = ['ingredientsNames', 'name', 'description']
         this._recipeDisplay = new RecipeDisplay(document.querySelector('.recipe-wrapper'))
         this._recipeDisplay.render(this._recipes)
         
@@ -42,7 +41,7 @@ class App {
     }
 
     handleSearchRequest(){
-       this._currentRecipes = keywordSearch(this._recipes, this._searchBar.searchValue, this._propertiesToSearch)
+       this._currentRecipes = keywordSearch(this._recipes, this._searchBar.searchValue)
        this._recipeDisplay.render(this._currentRecipes)
        this._filter.resetAllTags()
        this._filter.feedSuggestions(this._currentRecipes)

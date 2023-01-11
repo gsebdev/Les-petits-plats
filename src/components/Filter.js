@@ -34,10 +34,10 @@ export default class Filter {
         return new Promise(resolve => this._triggerTagChange = resolve)
     }
     get tags() {
-        let tags = {}
+        let tags = []
         this._filters.forEach(filter => {
             if(filter.tags.size !== 0){
-                tags[filter.filterKey] = [...filter.tags]
+                tags.push(...filter.tags)
             }
         })
         return tags

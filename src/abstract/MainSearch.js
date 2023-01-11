@@ -1,12 +1,9 @@
-const keywordSearch = (list, searchString, propertiesToSearch) => {
+const keywordSearch = (list, searchString) => {
         if(searchString === ''){
             return list
         }
-        const search = list.filter(element => {
-            return propertiesToSearch.some(key => {
-                return element[key].toLowerCase().indexOf(searchString.toLowerCase()) !== -1
-            })
-        })
+        // filter the recipe list -> if searchString is found in the recipe text to search in then keep it
+        const search = list.filter(element => element.textToSearchIn.indexOf(searchString.toLowerCase()) !== -1)
         return search
     }
 

@@ -1,31 +1,13 @@
-const filterByTags = (list, tagsObject) => {
+const filterByTags = (list, tags) => {
         return list.reduce((filteredList, element) => {
-
-        
-            if(Object.keys(tagsObject).every((key) => 
-                tagsObject[key].every(tag => 
-                    element.filters[key].toString().toLowerCase().indexOf(tag) !== -1
-                )
-            )){
+            // if all tags matches -> push element in return list
+            if(tags.every(tag => element.tagsList.indexOf(tag) !== -1)) {
                 filteredList.push(element)
             }
             return filteredList
             }
         ,[])
 }
-
-/* //filter method
-const filterByTags = (list, tagsObject) => {
-
-    return list.filter(element =>
-        Object.keys(tagsObject).every((key) => 
-            tagsObject[key].every(tag => 
-                element.filters[key].toString().toLowerCase().indexOf(tag) !== -1
-            )
-        )
-    )
-}
-*/
 
 export default filterByTags
 

@@ -1,71 +1,70 @@
 export default class RecipeCard {
-    /**
-     * 
-     * @param {Object} Recipe 
+  /**
+     *
+     * @param {Object} Recipe
      */
-    constructor(Recipe) {
-        this._Recipe = Recipe
-        return this.createCardDOM()
-        
-    }
-    createCardDOM(){
-        const card = document.createElement('article')
-        card.className = 'recipe-card'
-        card.id = this._Recipe.id
+  constructor (Recipe) {
+    this._Recipe = Recipe
+    return this.createCardDOM()
+  }
 
-        const link = document.createElement('a')
-        link.href = '?recipe_id=' + this._Recipe.id
+  createCardDOM () {
+    const card = document.createElement('article')
+    card.className = 'recipe-card'
+    card.id = this._Recipe.id
 
-        const imgContainer = document.createElement('div')
-        imgContainer.className = 'recipe-card__img-container'
+    const link = document.createElement('a')
+    link.href = '?recipe_id=' + this._Recipe.id
 
-        const bottomContainer = document.createElement('div')
-        bottomContainer.className = 'recipe-card__bottom-container'
+    const imgContainer = document.createElement('div')
+    imgContainer.className = 'recipe-card__img-container'
 
-        const title = document.createElement('div')
-        title.className = 'recipe-card__title'
+    const bottomContainer = document.createElement('div')
+    bottomContainer.className = 'recipe-card__bottom-container'
 
-        const h2 = document.createElement('h2')
-        h2.textContent = this._Recipe.name
+    const title = document.createElement('div')
+    title.className = 'recipe-card__title'
 
-        const duration = document.createElement('div')
-        duration.className = 'recipe-card__duration'
-        const watch = document.createElement('i')
-        const time = document.createElement('span')
-        time.textContent = this._Recipe.time + ' min'
+    const h2 = document.createElement('h2')
+    h2.textContent = this._Recipe.name
 
-        duration.append(watch, time)
-        title.append(h2, duration)
+    const duration = document.createElement('div')
+    duration.className = 'recipe-card__duration'
+    const watch = document.createElement('i')
+    const time = document.createElement('span')
+    time.textContent = this._Recipe.time + ' min'
 
-        const recipeBody = document.createElement('div')
-        recipeBody.className = 'recipe-card__recipe-body'
+    duration.append(watch, time)
+    title.append(h2, duration)
 
-        const ingredients = document.createElement('ul')
-        ingredients.className = 'recipe-card__ingredients'
-        this._Recipe.ingredients.forEach(ingredient => {
-            const li = document.createElement('li')
-            const strong = document.createElement('strong')
-            strong.textContent = ingredient.ingredient + ': '
-            const liText = ingredient.unit ? ingredient.quantity + ' ' + ingredient.unit : ingredient.quantity
-            li.textContent = liText
-            li.prepend(strong)
-            ingredients.append(li)            
-        })
+    const recipeBody = document.createElement('div')
+    recipeBody.className = 'recipe-card__recipe-body'
 
-        const preparation = document.createElement('p')
-        preparation.className = 'recipe-card__preparation'
-        const descText = this._Recipe.description.length > 175 ? 
-                            this._Recipe.description.substring(0, 174) + '...' 
-                            : this._Recipe.description
-        preparation.textContent = descText
+    const ingredients = document.createElement('ul')
+    ingredients.className = 'recipe-card__ingredients'
+    this._Recipe.ingredients.forEach(ingredient => {
+      const li = document.createElement('li')
+      const strong = document.createElement('strong')
+      strong.textContent = ingredient.ingredient + ': '
+      const liText = ingredient.unit ? ingredient.quantity + ' ' + ingredient.unit : ingredient.quantity
+      li.textContent = liText
+      li.prepend(strong)
+      ingredients.append(li)
+    })
 
-        recipeBody.append(ingredients, preparation)
-        bottomContainer.append(title, recipeBody)
+    const preparation = document.createElement('p')
+    preparation.className = 'recipe-card__preparation'
+    const descText = this._Recipe.description.length > 175
+      ? this._Recipe.description.substring(0, 174) + '...'
+      : this._Recipe.description
+    preparation.textContent = descText
 
-        link.append(imgContainer, bottomContainer)
-        card.append(link)
+    recipeBody.append(ingredients, preparation)
+    bottomContainer.append(title, recipeBody)
 
-        return card
+    link.append(imgContainer, bottomContainer)
+    card.append(link)
 
-    }
+    return card
+  }
 }

@@ -1,3 +1,5 @@
+// template for the recipe card
+
 export default class RecipeCard {
   /**
      *

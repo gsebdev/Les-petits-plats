@@ -8,7 +8,7 @@ export default class Filter {
       return filter
     })
 
-    // insertion DOM du composant filter
+    // Insert DOM in Html
     this._componentContainer = document.querySelector(container)
 
     this._tagsEl = document.createElement('div')
@@ -27,6 +27,7 @@ export default class Filter {
     this._triggerTagChange = null
   }
 
+  // Getter resolving a Promise when tag modification
   get onchange () {
     return new Promise(resolve => { this._triggerTagChange = resolve })
   }
@@ -41,6 +42,7 @@ export default class Filter {
     return tags
   }
 
+  // DOM template for one filter element
   getFilterDOM (filter) {
     const filterEl = document.createElement('div')
     filterEl.className = 'filter filter--' + filter.color
@@ -73,11 +75,12 @@ export default class Filter {
     this._filters.forEach(filter => {
       suggestions[filter.filterKey] = []
     })
-    // Pour chaque et chaque filtre les mots clé sont récupérés puis stocké dans un Set dans this._filters[filter.suggestions]
+    // Make a Set for each filter containing all the suggestions based on the recipe list
     if (listOfObjects.length !== 0) {
       listOfObjects.forEach(object => {
         this._filters.forEach(filter => {
           suggestions[filter.filterKey] = [...suggestions[filter.filterKey], ...object.filters[filter.filterKey]]
+          // Using a Set avoid duplicates and then transforming it again in an array
           filter.suggestions = [...new Set(suggestions[filter.filterKey])]
           this.updateSuggestions(filter)
         })
@@ -91,24 +94,25 @@ export default class Filter {
   }
 
   updateSuggestions (filter) {
-    // filtre les suggestions en fonction de la valeur du input
+    // Removes suggestions from the suggestion list function of actual filter input
     let suggestions = filter.suggestions.filter(suggestion => suggestion.toLowerCase().indexOf(filter.input.toLowerCase()) !== -1)
-    // filtre les suggestions en fonction des tags dejà présents
+    // Removes suggestions from the suggestion list function of tags already added
     suggestions = suggestions.filter(suggestion => {
       return !filter.tags.has(suggestion.toLowerCase())
     })
 
     const filterListEl = filter.element.querySelector('.filter__list')
-    // Vide la liste des suggestions
+    // empty suggestion list
     filterListEl.innerHTML = ''
     filterListEl.classList.remove('col-2', 'col-1')
+    // define the number of columns that will be displayed
     if (suggestions.length <= 10) {
       filterListEl.classList.add('col-1')
     } else if (suggestions.length <= 20) {
       filterListEl.classList.add('col-2')
     }
     suggestions.forEach(suggestion => {
-      // Ajoute chaque suggestions
+      // adds every suggestions to html
       const suggestEl = document.createElement('li')
       suggestEl.textContent = suggestion
       suggestEl.addEventListener('click', (e) => this.handleSuggestionClick(e, filter))
@@ -128,6 +132,7 @@ export default class Filter {
 
   handleKeyDown (e, filter) {
     switch (e.which) {
+      // tab and shift+tab
       case 9 : {
         if (filter.element.classList.contains('expanded')) {
           e.preventDefault()
@@ -153,6 +158,7 @@ export default class Filter {
         }
         break
       }
+      // click and enter
       case 1 :
       case 13 : {
         e.preventDefault()
@@ -168,6 +174,7 @@ export default class Filter {
 
         break
       }
+      // escape key
       case 27 : {
         e.preventDefault()
         this.desactivateFilter(filter)
@@ -187,7 +194,7 @@ export default class Filter {
     }
   }
 
-  // Methodes des gestion des filtres
+  // Methods that display suggestions for one filter
   activateFilter (filter) {
     this._activeFilter = filter.element
     this._filters.forEach(f => {
@@ -222,7 +229,7 @@ export default class Filter {
     }
   }
 
-  // Méthodes gestion des Tags
+  // Methods that adds, removes, display, reset tags
   addTag (filter, value) {
     if (value.length < 3) {
       return false

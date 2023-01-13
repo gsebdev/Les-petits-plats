@@ -5,7 +5,7 @@ export default class SearchBar {
     this._searchButton = this._searchBarEl.querySelector('label')
     this._searchCallback = searchCallback
     this._searchValue = ''
-
+    // event listeners
     this._searchButton.onclick = () => { this.handleSearch() }
     this._searchInput.oninput = () => { this.handleSearch() }
   }

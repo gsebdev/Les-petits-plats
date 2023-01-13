@@ -1,3 +1,5 @@
+// display the recipe cards
+
 export default class RecipeDisplay {
   /**
      *

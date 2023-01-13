@@ -1,3 +1,4 @@
+// Recipe model
 export default class Recipe {
   /**
      *
@@ -8,18 +9,23 @@ export default class Recipe {
     this._name = recipe.name
     this._servings = recipe.servings
     this._ingredients = recipe.ingredients
+    // array of all the ingredient names
     this._ingredientsNames = this._ingredients.map(i => i.ingredient.charAt(0).toUpperCase() + i.ingredient.slice(1).toLowerCase())
     this._time = recipe.time
     this._description = recipe.description
     this._appliance = recipe.appliance
     this._ustensils = recipe.ustensils
     this._cardDOM = null
+    // needed for the filter component
     this._filters = {
       ingredients: this._ingredientsNames,
       appliance: [this._appliance],
       ustensils: this._ustensils
     }
+    // needed for the search functions :
+    // string containing all the ingredients, appliance and ustensils
     this._tagsList = this._ingredientsNames.toString().toLowerCase() + ', ' + this._appliance.toLowerCase() + ', ' + this._ustensils.toString().toLowerCase()
+    // string containing ingredients, description and title
     this._textToSearchIn = (this._ingredientsNames.toString() + ' ' + this._description + ' ' + this._name).toLowerCase()
   }
 
